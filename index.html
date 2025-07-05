@@ -245,17 +245,15 @@
         const optGroupTo = document.createElement('optgroup');
         optGroupTo.label = group;
         unitsOfGroup.forEach(unit => {
-          let v = base / unit.value;
-          // 네 자리 소수점까지 표기
-          let num;
-          if (v >= 100) {
-            num = Math.floor(v).toLocaleString();
-          } else if (v >= 1) {
-            num = v.toLocaleString(undefined, {maximumFractionDigits: 4});
-          } else {
-            num = v.toFixed(4); // 소수점 4자리
-          }
-          html += `<tr><td>${unit.name} (${unit.symbol})</td><td>${num}</td></tr>`;
+          const optionFrom = document.createElement('option');
+          optionFrom.value = unit.name;
+          optionFrom.textContent = `${unit.name} (${unit.symbol})`;
+          optGroupFrom.appendChild(optionFrom);
+
+          const optionTo = document.createElement('option');
+          optionTo.value = unit.name;
+          optionTo.textContent = `${unit.name} (${unit.symbol})`;
+          optGroupTo.appendChild(optionTo);
         });
         fromSel.appendChild(optGroupFrom);
         toSel.appendChild(optGroupTo);
@@ -278,7 +276,7 @@
       return base / to.value;
     }
 
-    // 표 렌더(그룹 순서대로, 단위명 (심볼)/값)
+    // 표 렌더(그룹 순서대로, 단위명 (심볼)/값) **항상 소수점 4자리로 표시**
     function renderAllTable(kind, value, fromUnit) {
       const from = getUnitObj(kind, fromUnit);
       if (!from) return '';
@@ -289,8 +287,8 @@
         if (unitsOfGroup.length === 0) return;
         unitsOfGroup.forEach(unit => {
           let v = base / unit.value;
-          let num = (v >= 100) ? Math.floor(v) : Math.round(v * 100) / 100;
-          html += `<tr><td>${unit.name} (${unit.symbol})</td><td>${Number(num).toLocaleString()}</td></tr>`;
+          let num = Number(v).toFixed(4);
+          html += `<tr><td>${unit.name} (${unit.symbol})</td><td>${num}</td></tr>`;
         });
         html += `<tr><td colspan="2" style="background:#fafbfc; border:none;height:6px;"></td></tr>`;
       });
@@ -298,16 +296,14 @@
       return html;
     }
 
-    // 변환 공식 설명 생성
+    // 변환 공식 설명 생성 **항상 소수점 4자리**
     function getFormulaText(kind, fromUnit, toUnit) {
       if (!fromUnit || !toUnit) return '';
       const from = getUnitObj(kind, fromUnit);
       const to = getUnitObj(kind, toUnit);
       if (!from || !to) return '';
-      // 기본 공식 : A를 B로 어떻게 변환하나요? A는 B에 (공식값)를 곱해서 구할 수 있습니다.
       let rate = from.value / to.value;
-      // 소수점은 5자리까지만 표시 (정확한 실수로)
-      let dispRate = (Math.round(rate * 100000) / 100000).toLocaleString();
+      let dispRate = Number(rate).toFixed(4);
       return `<b>${from.name} (${from.symbol})</b>를 <b>${to.name} (${to.symbol})</b>로 어떻게 변환하나요?<br>
         <b>${from.name} (${from.symbol})</b>는 <b>${to.name} (${to.symbol})</b>에 <b>${dispRate}</b>를 곱해서 구할 수 있습니다.`;
     }
@@ -326,10 +322,10 @@
       const fromObj = getUnitObj(kind, fromUnit);
       const toObj = getUnitObj(kind, toUnit);
       const res = convert(value, fromUnit, toUnit, kind);
+      // **항상 소수점 4자리로 표시**
       document.getElementById('main-result').innerHTML =
-        `<b>${value}</b> <b>${fromObj.symbol}</b> = <b>${res.toLocaleString(undefined, {maximumFractionDigits:6})}</b> <b>${toObj.symbol}</b>`;
+        `<b>${value}</b> <b>${fromObj.symbol}</b> = <b>${Number(res).toFixed(4)}</b> <b>${toObj.symbol}</b>`;
       document.getElementById('all-table').innerHTML = renderAllTable(kind, value, fromUnit);
-      // 변환 공식 FAQ
       document.getElementById('faq-dynamic').innerHTML = getFormulaText(kind, fromUnit, toUnit);
     }
 
