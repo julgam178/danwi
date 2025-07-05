@@ -44,6 +44,28 @@
       margin: 0; min-height: 100vh;
       transition: background 0.2s;
     }
+    .container-flex {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      width: 100vw;
+    }
+    .side-ad {
+      width: 170px;
+      min-width: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 2.2em;
+      /* background: #f8f8fc;  필요시 라이트 배경 */
+      box-sizing: border-box;
+    }
+    .main-content {
+      flex: 1;
+      min-width: 350px;
+      max-width: 600px;
+    }
     .main-title {
       font-size: 2.1em;
       font-weight: 800;
@@ -137,6 +159,9 @@
         box-shadow: 0 2px 8px #14142633;
       }
     }
+    @media (max-width:1100px) {
+      .side-ad { display:none !important; }
+    }
     @media (max-width:700px) {
       .center-box { max-width: 99vw; padding: 1.2em 0.2em; }
       .main-title { font-size: 1.5em; margin-top: 1.2em;}
@@ -149,28 +174,53 @@
   </style>
 </head>
 <body>
-  <div class="main-title">단위 변환기</div>
-  <button class="theme-toggle" id="theme-toggle" title="다크모드/라이트모드 전환">🌙</button>
-  <div class="center-box">
-    <div class="category-row">
-      <label for="kind"><b>종류:</b></label>
-      <select id="kind">
-        <option value="length">길이</option>
-        <option value="weight">무게</option>
-        <option value="area">넓이</option>
-        <option value="volume">부피</option>
-      </select>
+  <div class="container-flex">
+
+    <!-- 왼쪽 광고 -->
+    <div class="side-ad">
+      <ins class="kakao_ad_area"
+        data-ad-unit="DAN-K0dAJOmYzKsZOpGt"
+        data-ad-width="160"
+        data-ad-height="600"></ins>
     </div>
-    <div class="converter">
-      <input type="number" id="value" value="1" min="0" step="any"/>
-      <select id="from"></select>
-      <span class="equals">=</span>
-      <select id="to"></select>
+
+    <!-- 본문 -->
+    <div class="main-content">
+      <div class="main-title">단위 변환기</div>
+      <button class="theme-toggle" id="theme-toggle" title="다크모드/라이트모드 전환">🌙</button>
+      <div class="center-box">
+        <div class="category-row">
+          <label for="kind"><b>종류:</b></label>
+          <select id="kind">
+            <option value="length">길이</option>
+            <option value="weight">무게</option>
+            <option value="area">넓이</option>
+            <option value="volume">부피</option>
+          </select>
+        </div>
+        <div class="converter">
+          <input type="number" id="value" value="1" min="0" step="any"/>
+          <select id="from"></select>
+          <span class="equals">=</span>
+          <select id="to"></select>
+        </div>
+        <div id="main-result"></div>
+        <div id="all-table"></div>
+        <div id="faq-dynamic" class="faq-dynamic"></div>
+      </div>
     </div>
-    <div id="main-result"></div>
-    <div id="all-table"></div>
-    <div id="faq-dynamic" class="faq-dynamic"></div>
+
+    <!-- 오른쪽 광고 -->
+    <div class="side-ad">
+      <ins class="kakao_ad_area"
+        data-ad-unit="DAN-K0dAJOmYzKsZOpGt"
+        data-ad-width="160"
+        data-ad-height="600"></ins>
+    </div>
+
   </div>
+  <!-- 광고 스크립트(한번만) -->
+  <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
   <script>
     // 모든 단위: 심볼/정확 기준값/순서
     const units = {
@@ -357,10 +407,5 @@
     }
     setTheme(darkMode);
   </script>
-  <ins class="kakao_ad_area" style="display:none;"
-    data-ad-unit = "DAN-K0dAJOmYzKsZOpGt"
-    data-ad-width = "160"
-    data-ad-height = "600"></ins>
-  <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
 </body>
 </html>
