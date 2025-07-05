@@ -245,15 +245,17 @@
         const optGroupTo = document.createElement('optgroup');
         optGroupTo.label = group;
         unitsOfGroup.forEach(unit => {
-          const optionFrom = document.createElement('option');
-          optionFrom.value = unit.name;
-          optionFrom.textContent = `${unit.name} (${unit.symbol})`;
-          optGroupFrom.appendChild(optionFrom);
-
-          const optionTo = document.createElement('option');
-          optionTo.value = unit.name;
-          optionTo.textContent = `${unit.name} (${unit.symbol})`;
-          optGroupTo.appendChild(optionTo);
+          let v = base / unit.value;
+          // 네 자리 소수점까지 표기
+          let num;
+          if (v >= 100) {
+            num = Math.floor(v).toLocaleString();
+          } else if (v >= 1) {
+            num = v.toLocaleString(undefined, {maximumFractionDigits: 4});
+          } else {
+            num = v.toFixed(4); // 소수점 4자리
+          }
+          html += `<tr><td>${unit.name} (${unit.symbol})</td><td>${num}</td></tr>`;
         });
         fromSel.appendChild(optGroupFrom);
         toSel.appendChild(optGroupTo);
