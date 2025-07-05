@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>단위 변환기 | 평, 근, 관, 리, 돈 등 전통도량형·SI·영미 단위 변환</title>
+  <meta name="description" content="쉽고 빠른 단위 변환기! 평, 근, 관, 리, 돈 등 전통 도량형부터 미터, 킬로그램, 갤런 등 현대 단위까지 한 번에 변환. 모바일·PC 모두 지원.">
+  <meta name="keywords" content="단위변환기, 전통도량형, 평 변환, 근 변환, 관 변환, 리 변환, 돈 변환, SI 단위, 단위 환산, 단위 계산기, converter, unit converter">
+  <meta property="og:title" content="단위 변환기 | 전통·현대·영미 단위 변환">
+  <meta property="og:description" content="쉽고 빠른 단위 변환기! 평, 근, 관, 리 등 전통 도량형과 미터, 킬로그램 등 현대 단위까지 한 번에.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://danwi.kr/">
+  <meta property="og:image" content="https://danwi.kr/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="단위 변환기">
+  <meta name="twitter:description" content="전통·현대 단위 한 번에 변환. 평, 근, 관, 돈, 리, m², kg 등 지원.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --main-bg: #f7f8fa;
+      --main-card: #fff;
+      --main-border: #d1d5db;
+      --main-shadow: #e6e9ef99;
+      --main-accent: #6C63FF;
+      --main-muted: #8f95a3;
+      --main-table-head: #f6f8fb;
+      --main-font: #1a1a1a;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --main-bg: #16191d;
+        --main-card: #20242b;
+        --main-border: #303340;
+        --main-shadow: #13131b99;
+        --main-accent: #b2aaff;
+        --main-muted: #cccccc;
+        --main-table-head: #242736;
+        --main-font: #ededed;
+      }
+    }
+    html, body {
+      background: var(--main-bg);
+      color: var(--main-font);
+      font-family: 'Pretendard', 'Segoe UI', Arial, sans-serif;
+      margin: 0; min-height: 100vh;
+      transition: background 0.2s;
+    }
+    .main-title {
+      font-size: 2.1em;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: -0.01em;
+      margin: 2.2em 0 0.3em 0;
+      color: var(--main-accent);
+      user-select: none;
+    }
+    .desc-keyword {
+      text-align: center;
+      color: var(--main-muted);
+      font-size: 1em;
+      margin: 0 0 1.5em 0;
+    }
+    .center-box {
+      background: var(--main-card);
+      max-width: 570px;
+      margin: 0 auto 0 auto;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px var(--main-shadow);
+      padding: 2.4em 2em 2.4em 2em;
+      text-align: center;
+    }
+    .category-row {
+      margin-bottom: 1.3em; text-align: left;
+    }
+    .converter {
+      display: flex; align-items: center; gap: 0.6em; justify-content: center; margin-bottom: 1em;
+    }
+    input[type=number] {
+      width: 90px; min-width: 64px;
+      font-size: 1.13em;
+      border: 1.5px solid var(--main-border);
+      border-radius: 8px;
+      padding: 0.32em 0.7em;
+      background: var(--main-bg);
+      color: var(--main-font);
+      box-sizing: border-box;
+      transition: border 0.18s, background 0.18s;
+    }
+    input[type=number]:focus, select:focus { border: 1.5px solid var(--main-accent); background: var(--main-card);}
+    select {
+      min-width: 110px;
+      font-size: 1.12em;
+      border: 1.5px solid var(--main-border);
+      border-radius: 8px;
+      padding: 0.32em 0.7em;
+      outline: none;
+      background: var(--main-bg);
+      color: var(--main-font);
+      box-sizing: border-box;
+      transition: border 0.18s, background 0.18s;
+    }
+    .opt-group-title {
+      font-size: 1em;
+      font-weight: bold;
+      color: var(--main-accent);
+      background: var(--main-table-head);
+      padding: 0.15em 0.1em;
+    }
+    .equals { font-size: 1.35em; color: var(--main-muted); margin: 0 0.19em;}
+    #main-result { font-size: 1.16em; font-weight: bold; margin-bottom: 1em;}
+    #all-table { margin-bottom: 0.7em;}
+    #all-table table { width:100%; margin:0 auto 0.2em auto; border-collapse:collapse; background: var(--main-card);}
+    #all-table th, #all-table td {
+      border: 1px solid var(--main-border);
+      padding: 0.43em 0.7em; text-align:right;
+    }
+    #all-table th { background: var(--main-table-head); text-align:center;}
+    #all-table td:first-child { text-align:left;}
+    .theme-toggle { position: absolute; top: 18px; right: 22px; cursor: pointer; background: var(--main-card); border: 1px solid var(--main-border); border-radius: 12px; padding: 0.3em 0.9em; color: var(--main-font); font-size: 1em; }
+    .faq-dynamic {
+      margin: 1.4em auto 0.7em auto;
+      background: #f6f8fb;
+      color: #323444;
+      font-size: 1.07em;
+      border-radius: 11px;
+      max-width: 400px;
+      padding: 1.1em 1.4em;
+      text-align: center;
+      border: 1px solid #e6e9ef;
+      box-shadow: 0 2px 8px #ececec33;
+      min-height: 3.5em;
+    }
+    @media (prefers-color-scheme: dark) {
+      .faq-dynamic {
+        background: #23253a;
+        color: #ededed;
+        border: 1px solid #282c38;
+        box-shadow: 0 2px 8px #14142633;
+      }
+    }
+    @media (max-width:700px) {
+      .center-box { max-width: 99vw; padding: 1.2em 0.2em; }
+      .main-title { font-size: 1.5em; margin-top: 1.2em;}
+      .faq-dynamic { font-size: 1em; padding: 0.9em 0.6em;}
+    }
+    @media (max-width:510px) {
+      .converter { flex-direction: column; gap:0.6em;}
+      .category-row {text-align:center;}
+    }
+  </style>
+</head>
+<body>
+  <div class="main-title">단위 변환기</div>
+  <div class="desc-keyword">현대 단위를 전통 단위로 변환해 보세요.</div>
+  <button class="theme-toggle" id="theme-toggle" title="다크모드/라이트모드 전환">🌙</button>
+  <div class="center-box">
+    <div class="category-row">
+      <label for="kind"><b>종류:</b></label>
+      <select id="kind">
+        <option value="length">길이</option>
+        <option value="weight">무게</option>
+        <option value="area">넓이</option>
+        <option value="volume">부피</option>
+      </select>
+    </div>
+    <div class="converter">
+      <input type="number" id="value" value="1" min="0" step="any"/>
+      <select id="from"></select>
+      <span class="equals">=</span>
+      <select id="to"></select>
+    </div>
+    <div id="main-result"></div>
+    <div id="all-table"></div>
+    <div id="faq-dynamic" class="faq-dynamic"></div>
+  </div>
+  <script>
+    // 모든 단위: 심볼/정확 기준값/순서
+    const units = {
+      length: [
+        { group: "SI", name: "센티미터", symbol: "cm", value: 0.01 },
+        { group: "SI", name: "미터", symbol: "m", value: 1 },
+        { group: "SI", name: "킬로미터", symbol: "km", value: 1000 },
+        { group: "SI", name: "해리", symbol: "nmi", value: 1852 },
+        { group: "영미", name: "인치", symbol: "in", value: 0.0254 },
+        { group: "영미", name: "피트", symbol: "ft", value: 0.3048 },
+        { group: "영미", name: "야드", symbol: "yd", value: 0.9144 },
+        { group: "영미", name: "마일", symbol: "mile", value: 1609.344 },
+        { group: "전통", name: "리", symbol: "리", value: 393 },
+        { group: "전통", name: "자", symbol: "자", value: 0.303 },
+        { group: "전통", name: "치", symbol: "치", value: 0.0303 },
+        { group: "전통", name: "칸", symbol: "칸", value: 1.818 },
+        { group: "전통", name: "정", symbol: "정", value: 120 }
+      ],
+      weight: [
+        { group: "SI", name: "그램", symbol: "g", value: 1 },
+        { group: "SI", name: "킬로그램", symbol: "kg", value: 1000 },
+        { group: "SI", name: "톤", symbol: "t", value: 1000000 },
+        { group: "영미", name: "온스", symbol: "oz", value: 28.349523125 },
+        { group: "영미", name: "파운드", symbol: "lb", value: 453.59237 },
+        { group: "전통", name: "돈", symbol: "돈", value: 3.75 },
+        { group: "전통", name: "냥", symbol: "냥", value: 37.5 },
+        { group: "전통", name: "근", symbol: "근", value: 600 },
+        { group: "전통", name: "관", symbol: "관", value: 3750 }
+      ],
+      area: [
+        { group: "SI", name: "제곱센티미터", symbol: "cm²", value: 0.0001 },
+        { group: "SI", name: "제곱미터", symbol: "m²", value: 1 },
+        { group: "영미", name: "에이커", symbol: "ac", value: 4046.8564224 },
+        { group: "전통", name: "평", symbol: "평", value: 3.3058 },
+        { group: "전통", name: "무", symbol: "무", value: 991.74 },
+        { group: "전통", name: "마지기", symbol: "마지기", value: 495.867 }
+      ],
+      volume: [
+        { group: "SI", name: "세제곱센티미터", symbol: "cm³", value: 0.000001 },
+        { group: "SI", name: "세제곱미터", symbol: "m³", value: 1 },
+        { group: "영미", name: "갤런", symbol: "gal", value: 0.003785411784 },
+        { group: "영미", name: "배럴", symbol: "bbl", value: 0.158987294928 },
+        { group: "전통", name: "홉", symbol: "홉", value: 0.00018 },
+        { group: "전통", name: "되", symbol: "되", value: 0.0018 },
+        { group: "전통", name: "말", symbol: "말", value: 0.018 },
+        { group: "전통", name: "석", symbol: "석", value: 0.18 },
+        { group: "기타", name: "티스푼", symbol: "tsp", value: 0.000005 },
+        { group: "기타", name: "테이블스푼", symbol: "tbsp", value: 0.000015 }
+      ]
+    };
+
+    // 단위 그룹 우선순위(노출/표)
+    const groupOrder = ["SI", "영미", "전통", "기타"];
+    const priorityUnit = {
+      length: "미터",
+      weight: "그램",
+      area: "제곱미터",
+      volume: "세제곱미터"
+    };
+
+    // 셀렉트 박스 옵션 생성(그룹별 분리, 많이 쓰는 순서)
+    function setUnitSelects(kind) {
+      const fromSel = document.getElementById('from');
+      const toSel = document.getElementById('to');
+      fromSel.innerHTML = '';
+      toSel.innerHTML = '';
+      groupOrder.forEach(group => {
+        const unitsOfGroup = units[kind].filter(u => u.group === group);
+        if (unitsOfGroup.length === 0) return;
+        const optGroupFrom = document.createElement('optgroup');
+        optGroupFrom.label = group;
+        const optGroupTo = document.createElement('optgroup');
+        optGroupTo.label = group;
+        unitsOfGroup.forEach(unit => {
+          const optionFrom = document.createElement('option');
+          optionFrom.value = unit.name;
+          optionFrom.textContent = `${unit.name} (${unit.symbol})`;
+          optGroupFrom.appendChild(optionFrom);
+
+          const optionTo = document.createElement('option');
+          optionTo.value = unit.name;
+          optionTo.textContent = `${unit.name} (${unit.symbol})`;
+          optGroupTo.appendChild(optionTo);
+        });
+        fromSel.appendChild(optGroupFrom);
+        toSel.appendChild(optGroupTo);
+      });
+      fromSel.value = priorityUnit[kind];
+      toSel.value = units[kind][0].name;
+    }
+
+    // 단위명으로 unit 객체 찾기
+    function getUnitObj(kind, name) {
+      return units[kind].find(u => u.name === name);
+    }
+
+    // 변환: 입력단위 → 기준값 → 목표단위
+    function convert(value, fromUnit, toUnit, kind) {
+      const from = getUnitObj(kind, fromUnit);
+      const to = getUnitObj(kind, toUnit);
+      if (!from || !to) return 0;
+      const base = value * from.value;
+      return base / to.value;
+    }
+
+    // 표 렌더(그룹 순서대로, 단위명 (심볼)/값)
+    function renderAllTable(kind, value, fromUnit) {
+      const from = getUnitObj(kind, fromUnit);
+      if (!from) return '';
+      const base = value * from.value;
+      let html = `<table><tr><th>단위</th><th>값</th></tr>`;
+      groupOrder.forEach(group => {
+        const unitsOfGroup = units[kind].filter(u => u.group === group);
+        if (unitsOfGroup.length === 0) return;
+        unitsOfGroup.forEach(unit => {
+          let v = base / unit.value;
+          let num = (v >= 100) ? Math.floor(v) : Math.round(v * 100) / 100;
+          html += `<tr><td>${unit.name} (${unit.symbol})</td><td>${Number(num).toLocaleString()}</td></tr>`;
+        });
+        html += `<tr><td colspan="2" style="background:#fafbfc; border:none;height:6px;"></td></tr>`;
+      });
+      html += `</table>`;
+      return html;
+    }
+
+    // 변환 공식 설명 생성
+    function getFormulaText(kind, fromUnit, toUnit) {
+      if (!fromUnit || !toUnit) return '';
+      const from = getUnitObj(kind, fromUnit);
+      const to = getUnitObj(kind, toUnit);
+      if (!from || !to) return '';
+      // 기본 공식 : A를 B로 어떻게 변환하나요? A는 B에 (공식값)를 곱해서 구할 수 있습니다.
+      let rate = from.value / to.value;
+      // 소수점은 5자리까지만 표시 (정확한 실수로)
+      let dispRate = (Math.round(rate * 100000) / 100000).toLocaleString();
+      return `<b>${from.name} (${from.symbol})</b>를 <b>${to.name} (${to.symbol})</b>로 어떻게 변환하나요?<br>
+        <b>${from.name} (${from.symbol})</b>는 <b>${to.name} (${to.symbol})</b>에 <b>${dispRate}</b>를 곱해서 구할 수 있습니다.`;
+    }
+
+    function updateResult() {
+      const kind = document.getElementById('kind').value;
+      const fromUnit = document.getElementById('from').value;
+      const toUnit = document.getElementById('to').value;
+      const value = parseFloat(document.getElementById('value').value);
+      if (!value || !fromUnit || !toUnit) {
+        document.getElementById('main-result').textContent = '';
+        document.getElementById('all-table').innerHTML = '';
+        document.getElementById('faq-dynamic').innerHTML = '';
+        return;
+      }
+      const fromObj = getUnitObj(kind, fromUnit);
+      const toObj = getUnitObj(kind, toUnit);
+      const res = convert(value, fromUnit, toUnit, kind);
+      document.getElementById('main-result').innerHTML =
+        `<b>${value}</b> <b>${fromObj.symbol}</b> = <b>${res.toLocaleString(undefined, {maximumFractionDigits:6})}</b> <b>${toObj.symbol}</b>`;
+      document.getElementById('all-table').innerHTML = renderAllTable(kind, value, fromUnit);
+      // 변환 공식 FAQ
+      document.getElementById('faq-dynamic').innerHTML = getFormulaText(kind, fromUnit, toUnit);
+    }
+
+    document.getElementById('kind').onchange = function() {
+      setUnitSelects(this.value);
+      updateResult();
+    }
+    document.getElementById('value').oninput = updateResult;
+    document.getElementById('from').onchange = updateResult;
+    document.getElementById('to').onchange = updateResult;
+    setUnitSelects('length');
+    updateResult();
+
+    // 🌙 다크모드/라이트모드 수동 토글 버튼
+    const themeToggle = document.getElementById('theme-toggle');
+    let darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let userTheme = localStorage.getItem('unitconv-theme');
+    if (userTheme) {
+      darkMode = (userTheme === 'dark');
+    }
+    function setTheme(dark) {
+      document.documentElement.style.colorScheme = dark ? "dark" : "light";
+      themeToggle.textContent = dark ? "☀️" : "🌙";
+      localStorage.setItem('unitconv-theme', dark ? 'dark' : 'light');
+    }
+    themeToggle.onclick = function() {
+      darkMode = !darkMode;
+      setTheme(darkMode);
+    }
+    setTheme(darkMode);
+  </script>
+</body>
+</html>
