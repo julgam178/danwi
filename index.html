@@ -171,6 +171,10 @@
       .converter { flex-direction: column; gap:0.6em;}
       .category-row {text-align:center;}
     }
+    .mobile-ad-top { display:none; }
+    @media (max-width:700px) {
+      .mobile-ad-top { display:flex !important; justify-content:center; margin 0.5em 0 1em 0; }
+    }
   </style>
 </head>
 <body>
@@ -188,6 +192,12 @@
     <div class="main-content">
       <h1 class="main-title">단위 변환기</h1>
       <p class="desc-keyword">평, 리 등 전통적 단위를 미터법, 영미법으로 변환하는 단위 변환기입니다.</p>
+      <div class="mobile-ad-top">
+        <ins class="kakao-ad-area"
+          data-ad-unit="DAN-A7cJuKJyazj5hPGE"
+          data-ad-width="320"
+          data-ad-height="50"></ins>
+      </div>
       <button class="theme-toggle" id="theme-toggle" title="다크모드/라이트모드 전환">🌙</button>
       <div class="center-box">
         <div class="category-row">
