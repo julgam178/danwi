@@ -293,6 +293,15 @@
       volume: "세제곱미터"
     };
 
+    //소숫점 4자리 함수
+    function formatNumber(num) {
+      if (Number.isInteger(num)) {
+        return num.toString();
+      } else {
+        return parseFloat(num.toFixed(4)).toString();
+      }
+    }
+        
     // 셀렉트 박스 옵션 생성(그룹별 분리, 많이 쓰는 순서)
     function setUnitSelects(kind) {
       const fromSel = document.getElementById('from');
