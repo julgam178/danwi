@@ -195,7 +195,6 @@
           data-ad-width="320"
           data-ad-height="50"></ins>
       </div>
-      <button class="theme-toggle" id="theme-toggle" title="다크모드/라이트모드 전환">🌙</button>
       <div class="center-box">
         <div class="category-row">
           <label for="kind"><b>종류:</b></label>
@@ -401,24 +400,6 @@
     document.getElementById('to').onchange = updateResult;
     setUnitSelects('length');
     updateResult();
-
-    // 🌙 다크모드/라이트모드 수동 토글 버튼
-    const themeToggle = document.getElementById('theme-toggle');
-    let darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let userTheme = localStorage.getItem('unitconv-theme');
-    if (userTheme) {
-      darkMode = (userTheme === 'dark');
-    }
-    function setTheme(dark) {
-      document.documentElement.style.colorScheme = dark ? "dark" : "light";
-      themeToggle.textContent = dark ? "☀️" : "🌙";
-      localStorage.setItem('unitconv-theme', dark ? 'dark' : 'light');
-    }
-    themeToggle.onclick = function() {
-      darkMode = !darkMode;
-      setTheme(darkMode);
-    }
-    setTheme(darkMode);
   </script>
 </body>
 </html>
