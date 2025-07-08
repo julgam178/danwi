@@ -358,7 +358,7 @@
         if (unitsOfGroup.length === 0) return;
         unitsOfGroup.forEach(unit => {
           let v = base / unit.value;
-          let num = Number(v).toFixed(4);
+          let num = formatNumber(v);
           html += `<tr><td>${unit.name} (${unit.symbol})</td><td>${num}</td></tr>`;
         });
         html += `<tr><td colspan="2" style="background:#fafbfc; border:none;height:6px;"></td></tr>`;
@@ -395,7 +395,7 @@
       const res = convert(value, fromUnit, toUnit, kind);
       // **항상 소수점 4자리로 표시**
       document.getElementById('main-result').innerHTML =
-        `<b>${value}</b> <b>${fromObj.symbol}</b> = <b>${Number(res).toFixed(4)}</b> <b>${toObj.symbol}</b>`;
+        `<b>${value}</b> <b>${fromObj.symbol}</b> = <b>${formatNumber(res)}</b> <b>${toObj.symbol}</b>`;
       document.getElementById('all-table').innerHTML = renderAllTable(kind, value, fromUnit);
       document.getElementById('faq-dynamic').innerHTML = getFormulaText(kind, fromUnit, toUnit);
     }
